@@ -3,6 +3,7 @@ services:
     image: ${DOCKER_REGISTRY-}cloudstatesapi
     environment:
       ConnectionStrings__Postgres: Host=${POSTGRES_HOST};Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+      Jwt__Secret: ${JWT_SECRET}
     build:
       context: .
       dockerfile: src/CloudStates.API/Dockerfile

@@ -12,9 +12,11 @@
   <ItemGroup>
     <None Include="..\..\.gitignore" Link="Root\.gitignore" />
     <None Include="..\..\README.md" Link="Root\README.md" />
+    <None Include="..\..\.env.example" Link="Root\.env.example" />
   </ItemGroup>
 
   <ItemGroup>
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
