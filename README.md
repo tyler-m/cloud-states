@@ -16,7 +16,7 @@ Install the Docker engine and Docker Compose on your system through whichever me
 
 ## Notes
 ### HTTP
-Communication is done over HTTP. If you want the service to be (more securely) accessible to the public, offload TLS encryption to a reverse proxy.
+Communication is done over HTTP. If you want the service accessible publicly, offload TLS to a reverse proxy.
 
 ### Adding migrations
 Ensure dotnet-ef is installed
