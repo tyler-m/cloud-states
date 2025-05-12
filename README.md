@@ -9,7 +9,7 @@ Docker Compose is used to construct the development environment. A local install
 In order to set up development services, Docker Compose needs to be provided information via a number of environment variables. A `.env` file in the repository's root is a simple means of doing this. Take a look at `.env.example` to see what's required.
 
 ### Windows with VS
-Opening the solution file in Visual Studio should step you through setting up Docker Desktop if Docker Compose isn't detected. Select the CloudStates.DockerCompose startup item in Visual Studio and start debugging.
+Opening the solution file in Visual Studio should direct you to install Docker Desktop if Docker Compose isn't detected. Select the CloudStates.DockerCompose startup item in Visual Studio and start debugging.
 
 ### Linux, macOS, or Windows without VS
 Install the Docker engine and Docker Compose on your system through whichever means suits you. Cloning the repository, setting relevant permissions, navigating to the project's root directory, and running `docker-compose -p cloudstates up` should be sufficient to build and run the project in development mode, making its services accessible locally. 
