@@ -19,7 +19,7 @@ Install Docker Engine and Docker Compose on your system through whichever means 
 Communication is done over HTTP. If you want the service accessible publicly, offload TLS to a reverse proxy.
 
 ### Adding migrations
-Ensure dotnet-ef is installed
+Ensure `dotnet-ef` is installed
 
 `dotnet tool install --global dotnet-ef`
 
