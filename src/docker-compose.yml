@@ -1,6 +1,0 @@
-services:
-  cloudstates:
-    image: ${DOCKER_REGISTRY-}cloudstates
-    build:
-      context: .
-      dockerfile: CloudStates/Dockerfile

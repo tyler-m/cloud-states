@@ -7,13 +7,20 @@
     <ProjectGuid>81dded9d-158b-e303-5f62-77a2896d2a5a</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
-    <DockerServiceName>cloudstates</DockerServiceName>
+    <DockerServiceName>cloudstatesapi</DockerServiceName>
+    <DockerComposeBaseFilePath>..\..\docker-compose</DockerComposeBaseFilePath>
+	<DockerComposeProjectName>cloudstates</DockerComposeProjectName>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="docker-compose.override.yml">
+    <None Include="..\..\.gitignore">
+      <Link>.gitignore</Link>
+    </None>
+    <None Include="..\..\docker-compose.override.yml">
+      <Link>docker-compose.override.yml</Link>
       <DependentUpon>docker-compose.yml</DependentUpon>
     </None>
-    <None Include="docker-compose.yml" />
-    <None Include=".dockerignore" />
+    <None Include="..\..\docker-compose.yml">
+      <Link>docker-compose.yml</Link>
+    </None>
   </ItemGroup>
 </Project>

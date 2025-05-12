@@ -1,0 +1,6 @@
+services:
+  cloudstatesapi:
+    image: ${DOCKER_REGISTRY-}cloudstatesapi
+    build:
+      context: .
+      dockerfile: src/CloudStates.API/Dockerfile
