@@ -3,7 +3,7 @@
 A service and API for storing emulator [save states](https://en.wiktionary.org/wiki/savestate) remotely. Intended for personal use with my project [Atem](https://github.com/tyler-m/atem).
 
 ## Development
-Docker Compose is used to construct the development environment. A local installation of the .NET SDK shouldn't be necessary for building.
+Docker Compose is used to construct the development environment.
 
 ### .env
 In order to set up development services, Docker Compose needs to be provided information via a number of environment variables. A `.env` file in the repository's root is a simple means of doing this. Take a look at `.env.example` to see what's required.
