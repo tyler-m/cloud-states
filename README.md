@@ -12,7 +12,7 @@ In order to set up development services, Docker Compose needs to be provided inf
 Opening the solution file in Visual Studio should direct you to install Docker Desktop if Docker Compose isn't detected. Select the CloudStates.DockerCompose startup item in Visual Studio and start debugging.
 
 ### Linux, macOS, or Windows without VS
-Install the Docker engine and Docker Compose on your system through whichever means suits you. Cloning the repository, setting relevant permissions, navigating to the project's root directory, and running `docker-compose -p cloudstates up` should be sufficient to build and run the project in development mode, making its services accessible locally. 
+Install Docker Engine and Docker Compose on your system through whichever means suits you. Cloning the repository, setting relevant permissions, navigating to the project's root directory, and running `docker-compose -p cloudstates up` should be sufficient to build and run the project in development mode, making its services accessible locally. 
 
 ## Notes
 ### HTTP
