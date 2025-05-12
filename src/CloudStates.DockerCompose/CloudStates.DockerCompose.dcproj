@@ -9,11 +9,11 @@
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
     <DockerServiceName>cloudstatesapi</DockerServiceName>
     <DockerComposeBaseFilePath>..\..\docker-compose</DockerComposeBaseFilePath>
-	<DockerComposeProjectName>cloudstates</DockerComposeProjectName>
+    <DockerComposeProjectName>cloudstates</DockerComposeProjectName>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="..\..\.gitignore">
-      <Link>.gitignore</Link>
+    <None Include="..\..\.dockerignore">
+      <Link>.dockerignore</Link>
     </None>
     <None Include="..\..\docker-compose.override.yml">
       <Link>docker-compose.override.yml</Link>
