@@ -18,9 +18,9 @@ namespace CloudStates.API.Repositories
             return null;
         }
 
-        public async Task<bool> UserWithUsernameExists(string username)
+        public async Task<User?> GetByUsernameAsync(string username)
         {
-            return await _db.Users.AnyAsync(u =>  u.Username == username);
+            return await _db.Users.FirstOrDefaultAsync(u => u.Username == username);
         }
     }
 }

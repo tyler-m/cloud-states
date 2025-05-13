@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using CloudStates.API.Data;
 using CloudStates.API.Exceptions;
 using CloudStates.API.Extensions;
@@ -19,6 +20,11 @@ namespace CloudStates.API
             builder.Services.AddExceptionHandler<CloudStatesExceptionHandler>();
             builder.Services.AddProblemDetails();
 
+            // options
+            builder.Services.AddOptions<JwtOptions>().Bind(config.GetSection("Jwt"))
+                .ValidateDataAnnotations().ValidateOnStart();
+            builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<JwtOptions>>().Value);
+
             // auth
             JwtOptions? jwtOptions = config.GetSection("Jwt").Get<JwtOptions>()
                 ?? throw new InvalidOperationException("Missing or invalid JWT configuration.");
@@ -27,7 +33,7 @@ namespace CloudStates.API
             // postgres
             string? postgresString = config.GetConnectionString("Postgres")
                 ?? throw new InvalidOperationException("Postgres connection string is missing.");
-            builder.Services.AddDbContext<CloudStatesDbContext>(options => options.UseNpgsql(postgresString));
+            builder.Services.AddDbContext<CloudStatesDbContext>(o => o.UseNpgsql(postgresString));
 
             // repositories
             builder.Services.AddScoped<IUserRepository, UserRepository>();

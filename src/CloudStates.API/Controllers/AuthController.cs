@@ -14,5 +14,12 @@ namespace CloudStates.API.Controllers
         {
             return Ok(await _authService.RegisterAsync(request));
         }
+
+        [HttpPost("login")]
+        [ProducesResponseType(typeof(LoginResponse), StatusCodes.Status200OK)]
+        public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginRequest request)
+        {
+            return Ok(await _authService.LoginAsync(request));
+        }
     }
 }
