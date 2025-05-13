@@ -1,4 +1,5 @@
-﻿using CloudStates.API.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using CloudStates.API.Data;
 using CloudStates.API.Models;
 
 namespace CloudStates.API.Repositories
@@ -15,6 +16,11 @@ namespace CloudStates.API.Repositories
             }
 
             return null;
+        }
+
+        public async Task<bool> UserWithUsernameExists(string username)
+        {
+            return await _db.Users.AnyAsync(u =>  u.Username == username);
         }
     }
 }
