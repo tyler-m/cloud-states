@@ -3,6 +3,7 @@ using CloudStates.API.Data;
 using CloudStates.API.Extensions;
 using CloudStates.API.Options;
 using CloudStates.API.Repositories;
+using CloudStates.API.Services;
 
 namespace CloudStates.API
 {
@@ -27,10 +28,20 @@ namespace CloudStates.API
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<ISaveStateRepository, SaveStateRepository>();
 
+            // services
+            builder.Services.AddScoped<IAuthService, AuthService>();
+
+            // controllers
+            builder.Services.AddControllers();
+
             WebApplication app = builder.Build();
+
             app.UseAuthentication();
             app.UseAuthorization();
+            
+            app.MapControllers();
             app.MapGet("/", () => "Cloud States");
+            
             app.Run();
         }
     }

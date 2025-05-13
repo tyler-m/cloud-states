@@ -1,0 +1,18 @@
+using Microsoft.AspNetCore.Mvc;
+using CloudStates.API.Dtos;
+using CloudStates.API.Services;
+
+namespace CloudStates.API.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class AuthController(IAuthService _authService) : ControllerBase
+    {
+        [HttpPost("register")]
+        [ProducesResponseType(typeof(RegisterResponse), StatusCodes.Status200OK)]
+        public async Task<ActionResult<RegisterResponse>> RegisterAsync([FromBody] RegisterRequest request)
+        {
+            return Ok(await _authService.RegisterAsync(request));
+        }
+    }
+}
