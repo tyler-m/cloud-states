@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using CloudStates.API.Dtos;
+using CloudStates.API.Extensions;
 using CloudStates.API.Services;
 
 namespace CloudStates.API.Controllers
@@ -20,6 +22,14 @@ namespace CloudStates.API.Controllers
         public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginRequest request)
         {
             return Ok(await _authService.LoginAsync(request));
+        }
+
+        [HttpGet("refresh")]
+        [Authorize(AuthenticationSchemes = "Refresh")]
+        [ProducesResponseType(typeof(RefreshResponse), StatusCodes.Status200OK)]
+        public ActionResult<RefreshResponse> Refresh()
+        {
+            return Ok(_authService.Refresh(User.GetUserId()));
         }
     }
 }

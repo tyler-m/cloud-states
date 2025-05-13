@@ -26,6 +26,20 @@ namespace CloudStates.API.Extensions
                         ValidAudience = jwtOptions.AccessAudience,
                         IssuerSigningKey = signingKey
                     };
+                })
+                .AddJwtBearer("Refresh", options =>
+                {
+                    options.MapInboundClaims = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = jwtOptions.Issuer,
+                        ValidAudience = jwtOptions.RefreshAudience,
+                        IssuerSigningKey = signingKey
+                    };
                 });
 
             services.Configure<AuthenticationOptions>(options => {

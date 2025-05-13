@@ -60,6 +60,17 @@ namespace CloudStates.API.Services
             };
         }
 
+        public RefreshResponse Refresh(int userId)
+        {
+            Token token = _tokenService.CreateAccessToken(new User { Id = userId });
+
+            return new RefreshResponse()
+            {
+                AccessToken = token.TokenString,
+                ExpiresAt = token.ExpiresAt
+            };
+        }
+
         private static bool VerifyUser(User user, string password)
         {
             using HMACSHA512 hmac = new(user.PasswordSalt);
