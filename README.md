@@ -28,4 +28,4 @@ Navigate to `src/CloudStates.API`
 `dotnet ef migrations add MigrationName --output-dir Data/Migrations`
 
 ### Updating database
-`dotnet ef database update --connection "ConnectionString"`
+`dotnet ef database update -- "ConnectionString"`
