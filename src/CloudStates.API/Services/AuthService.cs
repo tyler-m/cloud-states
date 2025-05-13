@@ -15,7 +15,7 @@ namespace CloudStates.API.Services
         {
             if (await _users.UserWithUsernameExists(request.Username))
             {
-                throw new ValidationException($"Username {request.Username} is already taken.");
+                throw new ValidationException($"Username '{request.Username}' is already taken.");
             }
 
             byte[] passwordSalt = GenerateSalt();

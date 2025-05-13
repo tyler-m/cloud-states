@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using CloudStates.API.Data;
+using CloudStates.API.Exceptions;
 using CloudStates.API.Extensions;
 using CloudStates.API.Options;
 using CloudStates.API.Repositories;
@@ -13,6 +14,10 @@ namespace CloudStates.API
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
             ConfigurationManager config = builder.Configuration;
+
+            // exception
+            builder.Services.AddExceptionHandler<CloudStatesExceptionHandler>();
+            builder.Services.AddProblemDetails();
 
             // auth
             JwtOptions? jwtOptions = config.GetSection("Jwt").Get<JwtOptions>()
@@ -36,6 +41,7 @@ namespace CloudStates.API
 
             WebApplication app = builder.Build();
 
+            app.UseExceptionHandler();
             app.UseAuthentication();
             app.UseAuthorization();
             
