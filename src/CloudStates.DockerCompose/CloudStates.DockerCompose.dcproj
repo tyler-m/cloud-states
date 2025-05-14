@@ -12,15 +12,12 @@
     <DockerComposeProjectName>cloudstates</DockerComposeProjectName>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="..\..\.dockerignore">
-      <Link>.dockerignore</Link>
-    </None>
+    <None Include="..\..\scripts\dev\start-minio.sh" Link="Root\scripts\dev\start-minio.sh" />
+    <None Include="..\..\.dockerignore" Link="Root\.dockerignore" />
+    <None Include="..\..\docker-compose.yml" Link="Root\docker-compose.yml" />
     <None Include="..\..\docker-compose.override.yml">
-      <Link>docker-compose.override.yml</Link>
-      <DependentUpon>docker-compose.yml</DependentUpon>
-    </None>
-    <None Include="..\..\docker-compose.yml">
-      <Link>docker-compose.yml</Link>
+      <Link>Root\docker-compose.override.yml</Link>
+      <DependentUpon>Root\docker-compose.yml</DependentUpon>
     </None>
   </ItemGroup>
 </Project>

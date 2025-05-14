@@ -14,6 +14,9 @@ Opening the solution file in Visual Studio should direct you to install Docker D
 ### Linux, macOS, or Windows without VS
 Install Docker Engine and Docker Compose on your system through whichever means suits you. Cloning the repository, setting relevant permissions, navigating to the project's root directory, and running `docker-compose -p cloudstates up` should be sufficient to build and run the project in development mode, making its services accessible locally. 
 
+### Services
+In the development environment, two containers are built in addition to the web service container. One hosts a Postgres server and the other hosts a MinIO server (implements Amazon S3 API).
+
 ## Notes
 ### HTTP
 Communication is done over HTTP. If you want the service accessible publicly, offload TLS to a reverse proxy.
