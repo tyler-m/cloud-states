@@ -24,6 +24,9 @@ namespace CloudStates.API
             builder.Services.AddOptions<JwtOptions>().Bind(config.GetSection("Jwt"))
                 .ValidateDataAnnotations().ValidateOnStart();
             builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<JwtOptions>>().Value);
+            builder.Services.AddOptions<S3Options>().Bind(config.GetSection("S3"))
+                .ValidateDataAnnotations().ValidateOnStart();
+            builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<S3Options>>().Value);
 
             // auth
             JwtOptions? jwtOptions = config.GetSection("Jwt").Get<JwtOptions>()

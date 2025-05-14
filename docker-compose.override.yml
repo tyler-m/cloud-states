@@ -5,6 +5,10 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_HTTP_PORTS: 8080
+      S3__AccessKey: ${MINIO_USER}
+      S3__SecretKey: ${MINIO_PASSWORD}
+      S3__SaveStatesBucket: ${MINIO_SAVESTATES_BUCKET}
+      S3__ServiceUrl: http://localhost:${MINIO_PORT}
     ports:
       - 8080:8080
 
