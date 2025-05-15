@@ -38,6 +38,11 @@ namespace CloudStates.API
                 ?? throw new InvalidOperationException("Postgres connection string is missing.");
             builder.Services.AddDbContext<CloudStatesDbContext>(o => o.UseNpgsql(postgresString));
 
+            // s3
+            S3Options s3Options = config.GetSection("S3").Get<S3Options>()
+                ?? throw new InvalidOperationException("Missing or invalid S3 configuration.");
+            builder.Services.AddAmazonS3Client(s3Options);
+
             // repositories
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<ISaveStateRepository, SaveStateRepository>();

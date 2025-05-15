@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Amazon.Runtime;
+using Amazon.S3;
 using CloudStates.API.Options;
 
 namespace CloudStates.API.Extensions
@@ -49,6 +51,22 @@ namespace CloudStates.API.Extensions
             });
 
             return services.AddAuthorization();
+        }
+
+        public static IServiceCollection AddAmazonS3Client(this IServiceCollection services, S3Options s3Options)
+        {
+            services.AddSingleton(sp =>
+            {
+                return new AmazonS3Client(
+                    new BasicAWSCredentials(s3Options.AccessKey, s3Options.SecretKey),
+                    new AmazonS3Config
+                    {
+                        ServiceURL = s3Options.ServiceUrl,
+                        ForcePathStyle = true
+                    });
+            });
+
+            return services;
         }
     }
 }
