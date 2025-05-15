@@ -55,6 +55,7 @@ namespace CloudStates.API
             // services
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
+            builder.Services.AddScoped<ISaveStateService, SaveStateService>();
 
             // controllers
             builder.Services.AddControllers();
