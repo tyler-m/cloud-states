@@ -1,11 +1,12 @@
 ﻿using CloudStates.API.Dtos;
+using CloudStates.API.Exceptions;
 using CloudStates.API.Models;
 using CloudStates.API.Options;
 using CloudStates.API.Repositories;
 
 namespace CloudStates.API.Services
 {
-    internal class SaveStateService(SaveStateOptions _options, IPreSignedUrlRepository _preSignedUrls, ISaveStateFileRepository _saveStateFiles) : ISaveStateService
+    internal class SaveStateService(SaveStateOptions _options, ISaveStateRepository _saveStates, ISaveStateFileRepository _saveStateFiles, IPreSignedUrlRepository _preSignedUrls) : ISaveStateService
     {
         public async Task<SaveStateUploadUrlResponse> GetUploadUrlAsync()
         {
@@ -26,7 +27,7 @@ namespace CloudStates.API.Services
 
             if (!await _preSignedUrls.AddAsync(preSignedUrl))
             {
-                throw new Exception($"Unable to add pre-signed URL with key '{key}'.");
+                throw new PersistenceException($"Unable to add pre-signed URL with key '{key}'.");
             }
 
             SaveStateUploadUrlResponse response = new()
@@ -37,6 +38,41 @@ namespace CloudStates.API.Services
             };
 
             return response;
+        }
+
+        public async Task<SaveStateStoreResponse> StoreAsync(SaveStateStoreRequest request, int userId)
+        {
+            bool fileExists = await _saveStateFiles.ExistsAsync(request.FileKey);
+
+            if (!fileExists)
+            {
+                throw new NotFoundException($"File with key '{request.FileKey}' was not found.");
+            }
+
+            SaveState saveState = new()
+            {
+                RomHash = request.RomHash,
+                Slot = request.Slot,
+                FileKey = request.FileKey,
+                CreatedAt = DateTimeOffset.UtcNow,
+                UserId = userId
+            };
+
+            if (!await _preSignedUrls.RemoveAsync(request.FileKey))
+            {
+                throw new PersistenceException($"Unable to remove pre-signed URL with key '{request.FileKey}'.");
+            }
+
+            if (await _saveStates.AddAsync(saveState) == null)
+            {
+                throw new PersistenceException("Unable to store save state.");
+            }
+
+            return new SaveStateStoreResponse
+            {
+                RomHash = saveState.RomHash,
+                Slot = saveState.Slot
+            };
         }
     }
 }

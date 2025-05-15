@@ -5,5 +5,6 @@ namespace CloudStates.API.Services
     public interface ISaveStateService
     {
         Task<SaveStateUploadUrlResponse> GetUploadUrlAsync();
+        Task<SaveStateStoreResponse> StoreAsync(SaveStateStoreRequest request, int userId);
     }
 }
