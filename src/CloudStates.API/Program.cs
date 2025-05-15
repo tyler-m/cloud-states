@@ -50,6 +50,7 @@ namespace CloudStates.API
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<ISaveStateRepository, SaveStateRepository>();
             builder.Services.AddScoped<ISaveStateFileRepository, SaveStateFileRepository>();
+            builder.Services.AddScoped<IPreSignedUrlRepository, PreSignedUrlRepository>();
 
             // services
             builder.Services.AddScoped<IAuthService, AuthService>();
