@@ -3,6 +3,7 @@ using System;
 using CloudStates.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CloudStates.API.Data.Migrations
 {
     [DbContext(typeof(CloudStatesDbContext))]
-    partial class CloudStatesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250515155704_AddPreSignedUrl")]
+    partial class AddPreSignedUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

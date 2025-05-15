@@ -1,5 +1,5 @@
-﻿using CloudStates.API.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using CloudStates.API.Models;
 
 namespace CloudStates.API.Data
 {
@@ -7,6 +7,7 @@ namespace CloudStates.API.Data
     {
         public DbSet<User> Users => Set<User>();
         public DbSet<SaveState> SaveStates => Set<SaveState>();
+        public DbSet<PreSignedUrl> PreSignedUrls => Set<PreSignedUrl>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
