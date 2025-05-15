@@ -11,6 +11,8 @@ namespace CloudStates.API.Exceptions
             httpContext.Response.StatusCode = exception switch
             {
                 ValidationException => StatusCodes.Status400BadRequest,
+                NotFoundException => StatusCodes.Status404NotFound,
+                PersistenceException => StatusCodes.Status500InternalServerError,
                 _ => StatusCodes.Status500InternalServerError
             };
 
