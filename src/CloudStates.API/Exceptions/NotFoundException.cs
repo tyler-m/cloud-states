@@ -1,4 +1,5 @@
-﻿namespace CloudStates.API.Exceptions
+﻿
+namespace CloudStates.API.Exceptions
 {
     internal class NotFoundException(string message) : Exception(message) { }
 }

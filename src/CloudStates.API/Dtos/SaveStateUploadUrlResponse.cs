@@ -1,4 +1,5 @@
-﻿namespace CloudStates.API.Dtos
+﻿
+namespace CloudStates.API.Dtos
 {
     public class SaveStateUploadUrlResponse
     {

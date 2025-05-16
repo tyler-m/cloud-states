@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using CloudStates.API.Dtos;
-using CloudStates.API.Services;
 using CloudStates.API.Extensions;
+using CloudStates.API.Services;
 
 namespace CloudStates.API.Controllers
 {

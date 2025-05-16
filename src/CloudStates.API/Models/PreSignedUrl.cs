@@ -1,4 +1,5 @@
-﻿namespace CloudStates.API.Models
+﻿
+namespace CloudStates.API.Models
 {
     public class PreSignedUrl
     {
