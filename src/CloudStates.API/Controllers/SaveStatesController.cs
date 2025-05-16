@@ -8,7 +8,9 @@ namespace CloudStates.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class SaveStatesController(ISaveStateService _saveStateService) : ControllerBase
+    public class SaveStatesController(
+        ISaveStateService _saveStateService
+        ) : ControllerBase
     {
         [Authorize]
         [HttpGet("upload-url")]
@@ -24,6 +26,14 @@ namespace CloudStates.API.Controllers
         public async Task<ActionResult<SaveStateStoreResponse>> StoreAsync([FromBody] SaveStateStoreRequest request)
         {
             return Ok(await _saveStateService.StoreAsync(request, User.GetUserId()));
+        }
+
+        [Authorize]
+        [HttpGet]
+        [ProducesResponseType(typeof(SaveStateDownloadUrlResponse), StatusCodes.Status200OK)]
+        public async Task<ActionResult<SaveStateDownloadUrlResponse>> GetDownloadUrlAsync([FromQuery] SaveStateDownloadUrlRequest request)
+        {
+            return Ok(await _saveStateService.GetDownloadUrlAsync(request, User.GetUserId()));
         }
     }
 }

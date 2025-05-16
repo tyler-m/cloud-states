@@ -6,7 +6,12 @@ using CloudStates.API.Repositories;
 
 namespace CloudStates.API.Services
 {
-    internal class SaveStateService(SaveStateOptions _options, ISaveStateRepository _saveStates, ISaveStateFileRepository _saveStateFiles, IPreSignedUrlRepository _preSignedUrls) : ISaveStateService
+    internal class SaveStateService(
+        SaveStateOptions _options,
+        ISaveStateRepository _saveStates,
+        ISaveStateFileRepository _saveStateFiles,
+        IPreSignedUrlRepository _preSignedUrls
+        ) : ISaveStateService
     {
         public async Task<SaveStateUploadUrlResponse> GetUploadUrlAsync()
         {
@@ -73,6 +78,25 @@ namespace CloudStates.API.Services
                 RomHash = saveState.RomHash,
                 Slot = saveState.Slot
             };
+        }
+
+        public async Task<SaveStateDownloadUrlResponse> GetDownloadUrlAsync(SaveStateDownloadUrlRequest request, int userId)
+        {
+            SaveState? saveState = await _saveStates.GetLatestAsync(userId, request.RomHash, request.Slot);
+
+            if (saveState == null)
+            {
+                throw new NotFoundException($"Unable to find save state with rom hash '{request.RomHash}' in slot {request.Slot}.");
+            }
+
+            string url = await _saveStateFiles.GetDownloadUrlAsync(saveState.FileKey, DateTime.UtcNow.AddMinutes(15));
+
+            SaveStateDownloadUrlResponse response = new()
+            {
+                FileUrl = url
+            };
+
+            return response;
         }
     }
 }
