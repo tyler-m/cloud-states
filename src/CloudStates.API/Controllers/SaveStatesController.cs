@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using CloudStates.API.Dtos;
 using CloudStates.API.Services;
+using CloudStates.API.Extensions;
 
 namespace CloudStates.API.Controllers
 {
@@ -15,6 +16,14 @@ namespace CloudStates.API.Controllers
         public async Task<ActionResult<SaveStateUploadUrlResponse>> GetUploadUrlAsync()
         {
             return Ok(await _saveStateService.GetUploadUrlAsync());
+        }
+
+        [Authorize]
+        [HttpPut]
+        [ProducesResponseType(typeof(SaveStateStoreResponse), StatusCodes.Status200OK)]
+        public async Task<ActionResult<SaveStateStoreResponse>> StoreAsync([FromBody] SaveStateStoreRequest request)
+        {
+            return Ok(await _saveStateService.StoreAsync(request, User.GetUserId()));
         }
     }
 }
