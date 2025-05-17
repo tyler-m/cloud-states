@@ -80,7 +80,7 @@ namespace CloudStates.API.Services
             };
         }
 
-        public async Task<SaveStateDownloadUrlResponse> GetDownloadUrlAsync(SaveStateDownloadUrlRequest request, int userId)
+        public async Task<SaveStateDownloadUrlResponse> GetLatestDownloadUrlAsync(SaveStateLatestRequest request, int userId)
         {
             SaveState? saveState = await _saveStates.GetLatestAsync(userId, request.RomHash, request.Slot);
 
@@ -97,6 +97,25 @@ namespace CloudStates.API.Services
             };
 
             return response;
+        }
+
+        public async Task<SaveStateResponse> GetLatestAsync(SaveStateLatestRequest request, int userId)
+        {
+            SaveState? saveState = await _saveStates.GetLatestAsync(userId, request.RomHash, request.Slot);
+
+            if (saveState == null)
+            {
+                throw new NotFoundException($"Unable to find save state with rom hash '{request.RomHash}' in slot {request.Slot}.");
+            }
+
+            return new SaveStateResponse
+            {
+                Id = saveState.Id,
+                RomHash = saveState.RomHash,
+                Slot = saveState.Slot,
+                FileKey = saveState.FileKey,
+                CreatedAt = saveState.CreatedAt
+            };
         }
     }
 }

@@ -29,11 +29,18 @@ namespace CloudStates.API.Controllers
         }
 
         [Authorize]
-        [HttpGet]
+        [HttpGet("latest/download-url")]
         [ProducesResponseType(typeof(SaveStateDownloadUrlResponse), StatusCodes.Status200OK)]
-        public async Task<ActionResult<SaveStateDownloadUrlResponse>> GetDownloadUrlAsync([FromQuery] SaveStateDownloadUrlRequest request)
+        public async Task<ActionResult<SaveStateDownloadUrlResponse>> GetLatestDownloadUrlAsync([FromQuery] SaveStateLatestRequest request)
         {
-            return Ok(await _saveStateService.GetDownloadUrlAsync(request, User.GetUserId()));
+            return Ok(await _saveStateService.GetLatestDownloadUrlAsync(request, User.GetUserId()));
+        }
+
+        [Authorize]
+        [HttpGet("latest")]
+        public async Task<ActionResult<SaveStateResponse>> GetLatestAsync([FromQuery] SaveStateLatestRequest request)
+        {
+            return Ok(await _saveStateService.GetLatestAsync(request, User.GetUserId()));
         }
     }
 }

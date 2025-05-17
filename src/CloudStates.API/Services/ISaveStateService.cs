@@ -6,6 +6,7 @@ namespace CloudStates.API.Services
     {
         Task<SaveStateUploadUrlResponse> GetUploadUrlAsync();
         Task<SaveStateStoreResponse> StoreAsync(SaveStateStoreRequest request, int userId);
-        Task<SaveStateDownloadUrlResponse> GetDownloadUrlAsync(SaveStateDownloadUrlRequest request, int userId);
+        Task<SaveStateDownloadUrlResponse> GetLatestDownloadUrlAsync(SaveStateLatestRequest request, int userId);
+        Task<SaveStateResponse> GetLatestAsync(SaveStateLatestRequest request, int userId);
     }
 }
