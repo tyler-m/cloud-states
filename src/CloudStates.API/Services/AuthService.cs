@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using CloudStates.API.Dtos;
+using CloudStates.API.Exceptions;
 using CloudStates.API.Models;
 using CloudStates.API.Repositories;
 
@@ -30,7 +31,7 @@ namespace CloudStates.API.Services
 
             if (await _users.AddAsync(user) == null)
             {
-                throw new Exception("Unable to register.");
+                throw new PersistenceException("Unable to register.");
             }
 
             return new RegisterResponse()
