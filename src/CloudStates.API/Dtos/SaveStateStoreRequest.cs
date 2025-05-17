@@ -8,6 +8,7 @@ namespace CloudStates.API.Dtos
         required public string RomHash { get; set; }
 
         [Required(ErrorMessage = "Slot is required.")]
+        [Range(0, 9)]
         required public int Slot { get; set; }
 
         [Required(ErrorMessage = "FileKey is required.")]
