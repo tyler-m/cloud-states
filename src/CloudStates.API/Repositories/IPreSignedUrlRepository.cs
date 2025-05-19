@@ -6,5 +6,6 @@ namespace CloudStates.API.Repositories
     {
         Task<bool> AddAsync(PreSignedUrl preSignedUrl);
         Task<bool> RemoveAsync(string fileKey);
+        Task<int> RemoveExpiredUrlsAsync();
     }
 }

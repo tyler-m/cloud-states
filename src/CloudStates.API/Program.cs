@@ -30,6 +30,9 @@ namespace CloudStates.API
             builder.Services.AddOptions<SaveStateOptions>().Bind(config.GetSection("SaveState"))
                 .ValidateDataAnnotations().ValidateOnStart();
             builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<SaveStateOptions>>().Value);
+            builder.Services.AddOptions<CleanupOptions>().Bind(config.GetSection("Cleanup"))
+                .ValidateDataAnnotations().ValidateOnStart();
+            builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<CleanupOptions>>().Value);
 
             // auth
             JwtOptions? jwtOptions = config.GetSection("Jwt").Get<JwtOptions>()
@@ -56,6 +59,9 @@ namespace CloudStates.API
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<ISaveStateService, SaveStateService>();
+
+            // background services
+            builder.Services.AddHostedService<CleanupService>();
 
             // controllers
             builder.Services.AddControllers();

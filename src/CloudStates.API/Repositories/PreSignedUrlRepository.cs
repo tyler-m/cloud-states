@@ -1,5 +1,6 @@
 ﻿using CloudStates.API.Data;
 using CloudStates.API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CloudStates.API.Repositories
 {
@@ -22,6 +23,19 @@ namespace CloudStates.API.Repositories
             }
 
             return false;
+        }
+
+        public async Task<int> RemoveExpiredUrlsAsync()
+        {
+            DateTimeOffset now = DateTimeOffset.UtcNow;
+
+            List<PreSignedUrl> expiredUrls = await _db.PreSignedUrls
+                .Where(url => url.ExpiresAt <= now)
+                .ToListAsync();
+
+            _db.PreSignedUrls.RemoveRange(expiredUrls);
+
+            return await _db.SaveChangesAsync();
         }
     }
 }
