@@ -8,7 +8,9 @@ using CloudStates.API.Repositories;
 
 namespace CloudStates.API.Services
 {
-    internal class AuthService(IUserRepository _users, ITokenService _tokenService) : IAuthService
+    internal class AuthService(
+        IUserRepository _users,
+        ITokenService _tokenService) : IAuthService
     {
         private const int SaltByteLength = 32;
 
@@ -50,7 +52,7 @@ namespace CloudStates.API.Services
                 throw new ValidationException("Invalid credentials.");
             }
 
-            TokenPair tokenPair = _tokenService.CreateTokenPair(user);
+            TokenPair tokenPair = _tokenService.CreateTokenPair(user.Id);
 
             return new LoginResponse()
             {
@@ -63,7 +65,7 @@ namespace CloudStates.API.Services
 
         public RefreshResponse Refresh(int userId)
         {
-            Token token = _tokenService.CreateAccessToken(new User { Id = userId });
+            Token token = _tokenService.CreateAccessToken(userId);
 
             return new RefreshResponse()
             {

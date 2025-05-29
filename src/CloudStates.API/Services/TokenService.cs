@@ -9,26 +9,26 @@ namespace CloudStates.API.Services
 {
     internal class TokenService(JwtOptions _options) : ITokenService
     {
-        public TokenPair CreateTokenPair(User user)
+        public TokenPair CreateTokenPair(int userId)
         {
             return new TokenPair
             {
-                AccessToken = CreateAccessToken(user),
-                RefreshToken = CreateRefreshToken(user)
+                AccessToken = CreateAccessToken(userId),
+                RefreshToken = CreateRefreshToken(userId)
             };
         }
 
-        public Token CreateAccessToken(User user)
+        public Token CreateAccessToken(int userId)
         {
-            return CreateToken(user, _options.MinutesUntilAccessExpiration, _options.AccessAudience);
+            return CreateToken(userId, _options.MinutesUntilAccessExpiration, _options.AccessAudience);
         }
 
-        private Token CreateRefreshToken(User user)
+        private Token CreateRefreshToken(int userId)
         {
-            return CreateToken(user, _options.MinutesUntilRefreshExpiration, _options.RefreshAudience);
+            return CreateToken(userId, _options.MinutesUntilRefreshExpiration, _options.RefreshAudience);
         }
 
-        private Token CreateToken(User user, double minutesUntilExpiration, string audience)
+        private Token CreateToken(int userId, double minutesUntilExpiration, string audience)
         {
             string? secret = _options.Secret;
 
@@ -37,7 +37,7 @@ namespace CloudStates.API.Services
 
             Claim[] claims =
             [
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             ];
 
